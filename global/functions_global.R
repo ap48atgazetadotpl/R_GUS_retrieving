@@ -1,12 +1,12 @@
 
-# Full join function for full join more then two dataframes 
+# Full join function for full join more then two dataframes (for transforming dataframes into variables_dataframe)
 
 func_frames_full_join <- function (frame_name) {
   Reduce(full_join, frame_name)
 }
 
 
-# Correcting names for unit with the same but different id's
+# Correcting names for unit with the same but different id's (after retrieving data from GUS BDL)
 
 func_correct_name <- function () {
 
@@ -20,7 +20,7 @@ func_correct_name <- function () {
   
 }
 
-# Handling missing units 
+# Handling missing units (after retrieving data from GUS BDL)
 
 func_handle_missing <- function (missing) {
   if (

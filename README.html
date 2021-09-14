@@ -373,41 +373,43 @@ pre code {
 <h3>Transform</h3>
 <p>The process is developed automatically and if necessary, manually.</p>
 <ul>
-<li>if missing units have been detected on previous stage, the appropiate .rds file(s) with automatically retrieved data is/are to be supplemented to avoid missing values throughout Statistics Poland webportal. The missing data are to be retrieved manually and stored in file: “/Data/app.xlsx”,</li>
-<li>the automatically retrieved data are to be merged with data with supplementing information. After merge the Complete dataset is written to .rds in “/Data/…” directory, (“transforming_functions”)</li>
-<li>after merge, the separate dataframes - each for variable - are created (“transforming_functions”),</li>
+<li>if missing units have been detected on previous stage, the appropiate .rds file(s) with automatically retrieved data is/are to be supplemented to avoid missing values:
+<ul>
+<li>the missing data are to be retrieved manually from Statistics Poland webportal and writen into file: “/Data/app.xlsx”,</li>
+<li>in the next step, automatically retrieved data have to be merged with manually retrieved supplementary data.</li>
+<li>when merged, complete dataset is written to .rds in “/Data/…” directory, (“create_variables”)</li>
+</ul></li>
+<li>after merge, the separate dataframes - each for variable - are created (“create_variables”),</li>
+<li>integration of separated dataframes into one dataframe: “variables_dataframe” (“create_variables_dataframe”)</li>
 </ul>
 </div>
 <div id="load" class="section level3">
 <h3>Load</h3>
+</div>
+<div id="derivative-actions-aggregations" class="section level3">
+<h3>Derivative actions: aggregations</h3>
 <ul>
-<li>integration separated dataframes with variables into one dataframe (“load_variables_dataframe”) with function: /loading_functions/load_variables_dataframe</li>
+<li>generating aggregations (“create_aggregations”) of variables from “variables dataframe” for future use.</li>
 </ul>
 </div>
-</div>
-<div id="creating-global-variables" class="section level2">
-<h2>Creating global variables</h2>
+<div id="derivative-actions-generating-plots" class="section level3">
+<h3>Derivative actions: generating plots</h3>
 <ul>
-<li>generating aggregations (“variables_global”) of variables from “variables dataframe” for future use (II) in &quot;/global/variables_global.R:,</li>
+<li>feeding the graphical presentations with values from created variables_dataframe using functions presented in dir: /plotting_functions.</li>
 </ul>
 </div>
-<div id="sample-usage" class="section level2">
-<h2>Sample usage</h2>
-<ul>
-<li>feeding the graphical presentations with values from created dataframe using functions presented in dir: /plotting_functions.</li>
-</ul>
 </div>
 <div id="usage" class="section level2">
 <h2>Usage</h2>
 <p>Extract:</p>
-<pre class="r"><code>#/retrieving_functions</code></pre>
+<pre class="r"><code>#/retrieving_functions/forests.R</code></pre>
 <p>Transform:</p>
-<pre class="r"><code>#transforming_functions/transforming_functions.R</code></pre>
+<pre class="r"><code>#transforming_functions/create_variables.R
+#transforming_functions/create_variables_dataframe.R
+#transforming_functions/create_aggregations.R</code></pre>
 <p>Load:</p>
-<pre class="r"><code>#loading_functions/load_variables_dataframe.R</code></pre>
-<p>Data processing:</p>
-<pre class="r"><code>#global/variables_global.R
-#/plotting_functions</code></pre>
+<p>Derivative actions:</p>
+<pre class="r"><code>#/plotting_functions</code></pre>
 </div>
 <div id="data-source-used-for-etl-feeding" class="section level2">
 <h2>Data source used for ETL feeding</h2>

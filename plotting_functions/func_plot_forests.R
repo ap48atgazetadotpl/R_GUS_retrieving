@@ -4,6 +4,8 @@ library(gapminder)
 library(dplyr)
 library(lubridate)
 
+source("transforming_functions/create_aggregations.R")
+
 ##  Plot - forestsworks % in Zlewnia (total, histogram)
 
 func_plot_forests_total <- function () {

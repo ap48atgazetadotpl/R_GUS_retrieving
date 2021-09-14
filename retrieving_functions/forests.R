@@ -66,7 +66,7 @@ retrieve <- function(link)
 
 retrieve(links)
 
-# Correcting names for unit with the same but different id's
+# Correcting names for units with the same name but different id's
 
 func_correct_name ()
 

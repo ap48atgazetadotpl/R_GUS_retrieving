@@ -1,6 +1,6 @@
 # ETL for Life 
 
-ETL tool for Life.  
+ETL tool for Life Pilica Catchment Project.  
 
 ## Components
 
@@ -20,21 +20,25 @@ The process is developed automatically, with following steps:
 
 The process is developed automatically and if necessary, manually. 
 
- - if missing units have been detected on previous stage, the appropiate .rds file(s) with automatically retrieved data is/are to be supplemented to avoid missing values throughout Statistics Poland webportal. The missing data are to be retrieved manually and stored in file: "/Data/app.xlsx",
- - the automatically retrieved data are to be merged with data with supplementing information. After merge the Complete dataset is written  to .rds in "/Data/..." directory, ("transforming_functions")
- - after merge, the separate dataframes - each for variable - are created ("transforming_functions"),
- 
+ - if missing units have been detected on previous stage, the appropiate .rds file(s) with automatically retrieved data is/are to be supplemented to avoid missing values:
+   - the missing data are to be retrieved manually from Statistics Poland webportal and writen into file: "/Data/app.xlsx",
+   - in the next step, automatically retrieved data have to be merged with manually retrieved supplementary data. 
+   - when merged, complete dataset is written  to .rds in "/Data/..." directory, ("create_variables")
+ - after merge, the separate dataframes - each for variable - are created ("create_variables"),
+ - integration of separated dataframes into one dataframe: "variables_dataframe" ("create_variables_dataframe")  
+
+
 ### Load
 
-- integration separated dataframes with variables into one dataframe ("load_variables_dataframe") with function: /loading_functions/load_variables_dataframe 
+ - element to supply (load data into postgresql).
 
-## Creating global variables 
+### Derivative actions: aggregations
 
-- generating aggregations ("variables_global") of variables from "variables dataframe" for future use  (II) in "/global/variables_global.R:,
+- generating aggregations ("create_aggregations") of variables from "variables dataframe" for future use.
 
-## Sample usage 
+### Derivative actions: generating plots 
 
-- feeding the graphical presentations with values from created dataframe using functions presented in dir: /plotting_functions.
+- feeding the graphical presentations with values from created variables_dataframe using functions presented in dir: /plotting_functions.
 
 ## Usage
 
@@ -47,19 +51,20 @@ Extract:
 Transform:
 
 ```{r}
-#transforming_functions/transforming_functions.R
+#transforming_functions/create_variables.R
+#transforming_functions/create_variables_dataframe.R
+#transforming_functions/create_aggregations.R
+
 ```
 
 Load:
 
 ```{r}
-#loading_functions/load_variables_dataframe.R
 ```
 
-Data processing: 
+Derivative actions:
 
 ```{r}
-#global/variables_global.R
 #/plotting_functions
 
 ```

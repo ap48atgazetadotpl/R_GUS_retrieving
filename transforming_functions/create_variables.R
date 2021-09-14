@@ -15,9 +15,12 @@ library(hrbrthemes)
 library(forcats)
 library(webshot)
 
+
+source("global/functions_global.R")
+
 #   I. Load data from .rds datafiles and transform selected variable types
 
-##  1.1. Loda data from .rds file with systematisc of gmina's 'name', 'region' and 'powiat' 
+##  1.1. Load data from .rds file with systematics of gmina's 'name', 'region' and 'powiat' 
 key_gen <- read_rds("Data/key_gen.rds")
 
 ##  1.2. Load data from .rds files with data retrieved throughout GUS API 

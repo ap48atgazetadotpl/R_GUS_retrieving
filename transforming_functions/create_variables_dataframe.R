@@ -16,7 +16,7 @@ library(forcats)
 library(webshot)
 
 source("global/functions_global.R")
-source("transforming_functions/transforming_functions.R")
+source("transforming_functions/create_variables.R")
 
 
 ##  1.4. Preparation of dataframe integrating all variables data from p. 1.3. 
