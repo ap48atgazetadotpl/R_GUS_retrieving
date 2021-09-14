@@ -1,0 +1,76 @@
+# ETL for Life 
+
+ETL tool for Life.  
+
+## Components
+
+### Extract 
+
+The process is developed automatically, with following steps:
+
+ - receiving selected data from Statistics Poland (Główny Urząd Statystyczny, https://bdl.stat.gov.pl/BDL/start) througout API (https://api.stat.gov.pl/Home/BdlApi?lang=en) using functions presented in "/retrieving_functions" directory. For each variable separate receiving function (in separate file) has been prepared,
+ - each receiving function execution conducts following steps:
+  - connect to GUS BDL database throughout API, 
+  - retrieve data according given criteria for catalogue of units definied in "units.rds" file with codes,
+  - check with function ```func_handle_missing``` if received data are complete in regard of of definied' units catalogue, and print message with check' result, including names of missing units (if any), 
+  - if missing units are detected, the aproppiate action is to be undertaken on "Transform" stage,
+  - save received data into apropiate file into "/Data/[filename].rds".
+
+### Transform
+
+The process is developed automatically and if necessary, manually. 
+
+ - if missing units have been detected on previous stage, the appropiate .rds file(s) with automatically retrieved data is/are to be supplemented to avoid missing values throughout Statistics Poland webportal. The missing data are to be retrieved manually and stored in file: "/Data/app.xlsx",
+ - the automatically retrieved data are to be merged with data with supplementing information. After merge the Complete dataset is written  to .rds in "/Data/..." directory, ("transforming_functions")
+ - after merge, the separate dataframes - each for variable - are created ("transforming_functions"),
+ 
+### Load
+
+- integration separated dataframes with variables into one dataframe ("load_variables_dataframe") with function: /loading_functions/load_variables_dataframe 
+
+## Creating global variables 
+
+- generating aggregations ("variables_global") of variables from "variables dataframe" for future use  (II) in "/global/variables_global.R:,
+
+## Sample usage 
+
+- feeding the graphical presentations with values from created dataframe using functions presented in dir: /plotting_functions.
+
+## Usage
+
+Extract:
+
+```{r}
+#/retrieving_functions/forests.R
+```
+
+Transform:
+
+```{r}
+#transforming_functions/transforming_functions.R
+```
+
+Load:
+
+```{r}
+#loading_functions/load_variables_dataframe.R
+```
+
+Data processing: 
+
+```{r}
+#global/variables_global.R
+#/plotting_functions
+
+```
+
+
+## Data source used for ETL feeding 
+
+Główny Urząd Statystyczny, https://bdl.stat.gov.pl/BDL/start)
+
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+

@@ -351,30 +351,49 @@ pre code {
 </div>
 
 
-<div id="etl-life" class="section level1">
-<h1>ETL Life</h1>
+<div id="etl-for-life" class="section level1">
+<h1>ETL for Life</h1>
 <p>ETL tool for Life.</p>
 <div id="components" class="section level2">
 <h2>Components</h2>
-<p>Extract:</p>
+<div id="extract" class="section level3">
+<h3>Extract</h3>
+<p>The process is developed automatically, with following steps:</p>
 <ul>
-<li>automatically receiving selected data from Statistics Poland (Główny Urząd Statystyczny, <a href="https://bdl.stat.gov.pl/BDL/start" class="uri">https://bdl.stat.gov.pl/BDL/start</a>) througout API (<a href="https://api.stat.gov.pl/Home/BdlApi?lang=en" class="uri">https://api.stat.gov.pl/Home/BdlApi?lang=en</a>) using functions presented in dir: /retrieving_functions,</li>
-<li>each receiving function conduct steps as:</li>
+<li>receiving selected data from Statistics Poland (Główny Urząd Statystyczny, <a href="https://bdl.stat.gov.pl/BDL/start" class="uri">https://bdl.stat.gov.pl/BDL/start</a>) througout API (<a href="https://api.stat.gov.pl/Home/BdlApi?lang=en" class="uri">https://api.stat.gov.pl/Home/BdlApi?lang=en</a>) using functions presented in “/retrieving_functions” directory. For each variable separate receiving function (in separate file) has been prepared,</li>
+<li>each receiving function execution conducts following steps:</li>
 <li>connect to GUS BDL database throughout API,</li>
-<li>retrieve data according given criteria,</li>
-<li>save received data into approppiate .rds file into /Data,</li>
-<li>check if received and saved data are complete in regard of statistical units,</li>
-<li>if missing units are manually detected, the approppiate action is undertaken on “Transform” stage.</li>
+<li>retrieve data according given criteria for catalogue of units definied in “units.rds” file with codes,</li>
+<li>check with function <code>func_handle_missing</code> if received data are complete in regard of of definied’ units catalogue, and print message with check’ result, including names of missing units (if any),</li>
+<li>if missing units are detected, the aproppiate action is to be undertaken on “Transform” stage,</li>
+<li>save received data into apropiate file into “/Data/[filename].rds”.</li>
 </ul>
-<p>Transform:</p>
+</div>
+<div id="transform" class="section level3">
+<h3>Transform</h3>
+<p>The process is developed automatically and if necessary, manually.</p>
 <ul>
-<li>if missing units have been detected on previous stage, the appropiate .rds file(s) are supplemented manually to avoid missing values using data retrieved manually and stored in file: /Data/app.xlsx,</li>
-<li>writing complete data to “R” .rds format into appropiate files dir: /Data.</li>
-<li>transforming data into variables using function /global/variables_global.R</li>
+<li>if missing units have been detected on previous stage, the appropiate .rds file(s) with automatically retrieved data is/are to be supplemented to avoid missing values throughout Statistics Poland webportal. The missing data are to be retrieved manually and stored in file: “/Data/app.xlsx”,</li>
+<li>the automatically retrieved data are to be merged with data with supplementing information. After merge the Complete dataset is written to .rds in “/Data/…” directory, (“transforming_functions”)</li>
+<li>after merge, the separate dataframes - each for variable - are created (“transforming_functions”),</li>
 </ul>
-<p>Load:</p>
+</div>
+<div id="load" class="section level3">
+<h3>Load</h3>
 <ul>
-<li>integration of variables into one dataframe (“variables_dataframe”) using function: /global/variables_global.R</li>
+<li>integration separated dataframes with variables into one dataframe (“load_variables_dataframe”) with function: /loading_functions/load_variables_dataframe</li>
+</ul>
+</div>
+</div>
+<div id="creating-global-variables" class="section level2">
+<h2>Creating global variables</h2>
+<ul>
+<li>generating aggregations (“variables_global”) of variables from “variables dataframe” for future use (II) in &quot;/global/variables_global.R:,</li>
+</ul>
+</div>
+<div id="sample-usage" class="section level2">
+<h2>Sample usage</h2>
+<ul>
 <li>feeding the graphical presentations with values from created dataframe using functions presented in dir: /plotting_functions.</li>
 </ul>
 </div>
@@ -383,9 +402,12 @@ pre code {
 <p>Extract:</p>
 <pre class="r"><code>#/retrieving_functions</code></pre>
 <p>Transform:</p>
-<pre class="r"><code>#global/variables_global.R</code></pre>
+<pre class="r"><code>#transforming_functions/transforming_functions.R</code></pre>
 <p>Load:</p>
-<pre class="r"><code>#global/variables_global.R</code></pre>
+<pre class="r"><code>#loading_functions/load_variables_dataframe.R</code></pre>
+<p>Data processing:</p>
+<pre class="r"><code>#global/variables_global.R
+#/plotting_functions</code></pre>
 </div>
 <div id="data-source-used-for-etl-feeding" class="section level2">
 <h2>Data source used for ETL feeding</h2>
