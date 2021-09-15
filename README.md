@@ -30,7 +30,7 @@ The process is developed automatically and if necessary, manually.
 
 ### Load
 
- - element to supply (load data into postgresql).
+ - Load dataframe as table in 'life' database (postrges).  
 
 ### Derivative actions: aggregations
 
@@ -66,7 +66,6 @@ Derivative actions:
 
 ```{r}
 #/plotting_functions
-
 ```
 
 
