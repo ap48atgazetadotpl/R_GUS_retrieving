@@ -30,7 +30,7 @@ The process is developed automatically and if necessary, manually.
 
 ### Load
 
- - Load dataframe as table in 'life' database (postrges).  
+ - Load dataframe as table into 'life' database (postgres).  
 
 ### Derivative actions: aggregations
 
@@ -60,6 +60,7 @@ Transform:
 Load:
 
 ```{r}
+#loading_functions/loading_postgres.R
 ```
 
 Derivative actions:
@@ -71,7 +72,7 @@ Derivative actions:
 
 ## Data source used for ETL feeding 
 
-Główny Urząd Statystyczny, https://bdl.stat.gov.pl/BDL/start)
+Główny Urząd Statystyczny (https://bdl.stat.gov.pl/BDL/start)
 
 
 ## License
