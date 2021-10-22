@@ -1,6 +1,7 @@
-.RData
+.Rproj.user
 .Rhistory
-R_ETL.Rproj
-.Rproj.user
-README.html
-.Rproj.user
+.Rbuildignore
+.RData
+inst/doc
+/doc/
+/Meta/
