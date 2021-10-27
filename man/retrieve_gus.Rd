@@ -4,7 +4,7 @@
 \alias{retrieve_gus}
 \title{Retrieve data for Pilica Catchment NUTS6 units}
 \usage{
-retrieve_gus(topic, save = TRUE, verbose = TRUE)
+retrieve_gus(topic, save = TRUE)
 }
 \arguments{
 \item{topic}{{string selected from the list of following topics:
@@ -38,15 +38,17 @@ retrieve_gus(topic, save = TRUE, verbose = TRUE)
 \item farms_10_15_ha}
 }}
 
-\item{save}{{TRUE or FALSE}}
+\item{save}{{TRUE ora FALSE; default = TRUE - save retrieved data into .rds file into /retrieveddata directory}}
 }
 \value{
 Dataframe including retrieved data for Pilica Catchment NUTS6 units for selected "topic". If \code{save = TRUE} the file \code{topic.rds} in \code{retrieveddata} directory is created.
 If data for some NUTS6 have been not retrieved successfully, their names appear in message after function execution.
-
-@examples
-retrieve_gus("sewers")
 }
 \description{
 {Retrieve data for 89 Pilica Catchment NUTS6 units from Statistics Poland (GUS BDL) database through GUS BDL API}
+}
+\examples{
+## Not run:
+retrieve_gus("farms_fosfor_2010")
+## End(Not run)
 }

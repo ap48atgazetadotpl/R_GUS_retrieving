@@ -4,15 +4,21 @@
 \alias{transform_gus}
 \title{Integrate datasets retrieved with 'retrieve_gus' function into one dataframe}
 \usage{
-transform_gus()
+transform_gus(save = TRUE)
+}
+\arguments{
+\item{save}{{TRUE or FALSE; default = TRUE - save retrieved data into .rds file into \code{transformeddata} directory}}
 }
 \value{
-Dataframe in "transformed".rds format file in \code{retrieveddata} directory. Dataframe includes data from all topic.rds type datasets stored in \code{retrieveddata} directory.
+Dataframe including data from all topic.rds type datasets stored in \code{retrieveddata} directory.
+If \code{save = TRUE} the file \code{transformeddata.rds} in \code{transformeddata} directory is created.
 }
 \description{
 Integrate datasets retrieved with 'retrieve_gus' function into one dataframe
 }
 \examples{
+## Not run:
 transform_gus()
+## End(Not run)
 
 }

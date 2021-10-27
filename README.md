@@ -4,15 +4,15 @@ ETL tool for Life Pilica Plus Catchment Project.
 
 ## Motivation
 
-The tool has been prepared to automatize the processes of retrieval of statistical data from Statistics Poland (Główny Urząd Statystyczny, GUS; https://stat.gov.pl/) throughout GUS' API (https://api.stat.gov.pl/Home/BdlApi?lang=en) for 91 Polish localities  (*gmina*, NUTS6), useful for socio-economic analyses in the project "Life Pilica + " (IP LIFE PL Pilica Basin CTRL: Implementation of River Basin Management Plan in the Vistula basin on the example of Pilica river catchment Project of the LIFE programme (the EU's funding instrument).
+The tool has been prepared to automatize the processes of retrieval of statistical data from Statistics Poland (Główny Urząd Statystyczny, GUS; https://stat.gov.pl/) throughout GUS' API (https://api.stat.gov.pl/Home/BdlApi?lang=en) for 89 Polish localities  (*gmina*, NUTS6 statistical units), to be utilised for socio-economic analyses in the project "Life Pilica + " (IP LIFE PL Pilica Basin CTRL: Implementation of River Basin Management Plan in the Vistula basin on the example of Pilica river catchment Project of the LIFE programme (the EU's funding instrument)).
 
-In addition, the tool enables simple transformation of retrieved data into one dataframe, convienient for further analyses. 
+In addition, the tool enables simple transformation of retrieved data into one dataframe, convenient for further analyses. 
   
 ## Usage 
 
 ### Data retrieving  
 
-Process of data retrieval from Statistics Poland (Bank Danych Lokalnych) database starts with execution of ```retrieve_gus ("topic")``` function.
+Process of data retrieval from Statistics Poland (Bank Danych Lokalnych) database starts with execution of ```retrieve_gus ("topic", save)``` function.
 
 The data are retrieved in yearly intervals. Time range of retrieved data differs among variables, with the lower end on 1995 and higher end on 2021.   
 
@@ -46,39 +46,40 @@ The catalogue of ```topics``` includes 27 following variables:
 - farms_10_15_ha - number of farms with area 10ha to 15ha; data for 2010, according to Powszechny Spis Rolny 2010 (General Agricultural Census 2010)
 - farms_over_1ha - number of farms with area over 1ha; data for 2010, according to Powszechny Spis Rolny 2010 (General Agricultural Census 2010).
 
-In each function execution data are retrieved for 91 *gminas*, with following steps:
+During function execution data are retrieved for 89 *gminas*, with following steps:
 
   - client connection to GUS BDL (Główny Urząd Statystyczny, https://bdl.stat.gov.pl/BDL/start) database throughout API enabled by Statistics Poland (https://api.stat.gov.pl/Home/BdlApi?lang=en), 
-  - retrieve data for selected "topic" for 91 statistical units,  
-  - internal test if data has been retrieved for all 91 *gminas* 
+  - retrieve data for selected "topic" for 89 statistical units,  
+  - internal test if data has been retrieved for all 89 *gminas* 
   - prints test result (message) with names of *gminas* for which data has not been retrieved (if any),
-  - write retrieved data into ```"topic".rds``` file in customised directory ('retrieveddata'), created automatically in working directory. 
+  - write retrieved data into ```"topic".rds``` file in customised directory ('retrieveddata'), created automatically in working directory when ```save``` parameter was set to ```TRUE``` (default setting). 
   
 ```Topic.rds``` file includes following variables: 
 
+ - ```id``` - unique id number of *gmina* (according to GUS BDL, NUTS6; local statistical units),
  - ```name``` - name of *gmina* (NUTS6; local statistical units),
- - ```powiat``` - name of county (NUTS4) where *gmina* belongs,
- - ```region``` - name of region (NUTS2) where *gmina* belongs,
- - ```val``` - retrieved values for selected "topic".  
+ - ```year``` - year of observation,
+ - ```[topic]``` - retrieved values for selected "topic".  
   
 If data for some *gminas* has not been retrieved, it is recommended to repeat function execution after 15 minutes, as the GUS API limits requests number for specific period of time (15 minutes). In case if the limit is exhausted, the data for some *gminas* are not retrieved. 
 
 ### Data transformation  
 
-Process of data transformation is developed with ```transform_gus ()``` function.
+Process of data transformation is developed with ```transform_gus (save)``` function.
 
-Prerequisite for the function usage, is at least one datafile with retrieved data stored in the ```'retrievedata'``` directory. Otherwise, the warninig message is displayed. 
+Prerequisite for the function usage, is at least one datafile with retrieved data stored in the ```'retrievedata'``` directory. Otherwise, the warning message is displayed. 
 
-Execution of ```transform_gus ("topic")``` function: 
+Execution of ```transform_gus (save)``` function: 
 
-- creates one dataframe (```transformedata.rds```) from all dataframes stored in the 'retrievedata' directory and stores the new dataframe in newly created ```'transformedata'``` directory.  
+- creates one dataframe (```transformedata.rds```) from all dataframes stored in the ```'retrievedata'``` directory and stores the new dataframe in newly created ```'transformedata'``` directory.  
 
 ```Transformeddata.rds``` file includes following variables: 
 
+ - ```id``` - unique id number of *gmina* (according to GUS BDL, NUTS6; local statistical units),
  - ```name``` - name of *gmina* (NUTS6; local statistical units),
- - ```powiat``` - name of county (NUTS4) where *gmina* belongs,
- - ```region``` - name of region (NUTS2) where *gmina* belongs,
- - values of variables from dataframes that has been transformed.  
+ - ```year``` - year of observation,
+ - ```[topic#1]``` - retrieved values for first "topic", for which data has been previously retrieved,    
+ - ```[topic#n]``` - retrieved values for n "topic", for which data has been previously retrieved.
 
 ## Data source used for datatables feeding 
 
@@ -88,5 +89,5 @@ GUS API documentation: Główny Urząd Statystyczny, https://api.stat.gov.pl/Hom
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/gpl-2.0/)
+[GPL-2.0](https://choosealicense.com/licenses/gpl-2.0/)
 
