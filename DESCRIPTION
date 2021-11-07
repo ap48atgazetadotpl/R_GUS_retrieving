@@ -1,8 +1,8 @@
 Package: etlife
 Title: Retrieve and Transform Socio-economic Data on Pilica Catchment
 Version: 0.0.0.9000
-Author: Pawel Czyz <p.czyz@erce.unesco.lodz.pl>
-Maintainer: Pawel Czyz <p.czyz@erce.unesco.lodz.pl>
+Author: Pawel Czyz <ap48@gazeta.pl>
+Maintainer: Pawel Czyz <ap48@gazeta.pl>
 Depends: R (>= 3.5.0)
 Imports: RCurl, dplyr, readr, rjson
 Description: Package enables retrieving and transforming data of selected 91 Polish NUTS6 units located in Pilica river Catchment. The data source is Statictics Poland (Glowny Urzad Statystyczny, GUS, <https://stat.gov.pl/>). The package has been created in the framework of Pilica Life Plus project.  
